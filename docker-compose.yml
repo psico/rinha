@@ -1,6 +1,6 @@
 version: "1"
 services:
-  api1: # API - Instância 01
+  api1: &api1 # API - Instância 01
     # image: api
     build: .
     hostname: api1
@@ -12,8 +12,6 @@ services:
       NODE_ENV: prodution
       CLUSTER: true
       CLUSTER_WORKERS: 5
-    expose:
-      - "8080"
     depends_on:
       - db
 
@@ -25,6 +23,7 @@ services:
 
   api2: # API - Instância 01
     <<: *api1
+    hostname: api2
 
   nginx: # Load Balancer
     image: nginx:latest
@@ -60,4 +59,4 @@ services:
       resources:
         limits:
           cpus: '0.75'
-          memory: '1.5GB
+          memory: '1.5GB'
